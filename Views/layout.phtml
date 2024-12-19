@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cs-CZ">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php foreach (self::$cssFiles as $cssFile) : ?>
+        <link rel="stylesheet" href="/public/css/<?= $cssFile ?>.css">
+    <?php endforeach ?>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous"></script>
+    <?php foreach (self::$jsFiles as $jsFile) : ?>
+        <script type="text/javascript" src="/public/js/<?= $jsFile ?>.js"></script>
+    <?php endforeach ?>
+    <title>Správa robotů WikiSkript</title>
+</head>
+<body data-page-id="<?=
+/** @var string $layout_page_id ID of the generated webpage, initialized in the specific controller */
+$layout_page_id
+?>">
+<nav>
+    <span class="nav-row">
+        <a id="home-link" href="/" class="nav-item">Homepage</a>
+        <a id="browse-link" href="/tasks" class="nav-item">Správa úkonů</a>
+    </span>
+    <span class="nav-row">
+        <a id="login-link" href="https://www.wikiskripta.eu" class="nav-item">WikiSkripta</a>
+        <a id="signup-link" href="https://www.wikiskripta.eu/w/Speci%C3%A1ln%C3%AD:E-mail/ShadyMedic" class="nav-item">Kontakt</a>
+    </span>
+</nav>
+<main>
+    <header>
+        <h1><?= $layout_title ?></h1>
+    </header>
+    <article>
+        <?php require self::VIEWS_DIRECTORY.'/'.array_shift(self::$views).'.phtml'; ?>
+    </article>
+</main>
+<footer>
+    <div>Naprogramoval Jan Štěch.</div>
+</footer>
+</body>
+</html>
+
