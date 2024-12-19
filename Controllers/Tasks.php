@@ -2,7 +2,6 @@
 
 namespace Wikibots\Controllers;
 
-use Wikibots\Models\UserException;
 use Wikibots\Models\UserManager;
 
 /**

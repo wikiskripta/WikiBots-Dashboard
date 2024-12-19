@@ -4,6 +4,7 @@ namespace Wikibots\Controllers;
 
 use BadMethodCallException;
 use UnexpectedValueException;
+use Wikibots\Models\UserManager;
 
 /**
  * @see Controller
@@ -32,6 +33,10 @@ class Router extends Controller
         self::$views[] = 'layout';
         self::$cssFiles[] = 'layout';
         self::$jsFiles[] = 'layout';
+
+        $userManager = new UserManager();
+        self::$data['layout']['username'] = $userManager->getUserName();
+        self::$data['layout']['usergroups'] = $userManager->getUserGroups();
 
         $variables = array(); //Variable arguments provided in the URL
         $parameters = array(); //Order of the arguments that needs to be passed to the controller

@@ -14,7 +14,7 @@ class Index extends Controller
     public function process(array $args = []): int
     {
         self::$data['layout']['page_id'] = 'index';
-        self::$data['layout']['title'] = 'Prázdný web';
+        self::$data['layout']['title'] = 'Ovládací panel Sunny';
 
         self::$views[] = 'index';
 

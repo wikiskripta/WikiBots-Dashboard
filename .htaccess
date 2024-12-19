@@ -11,6 +11,8 @@ RewriteRule ^.*$ - [NC,L]
 # Povolení přímého přístupu k konfiguračním souborům pro prohlížeče
 RewriteCond %{REQUEST_URI} !^/robots\.txt
 
+RewriteCond %{REQUEST_URI} !^/debug\.php
+
 # Povolení přímého přístupu k souborům s danými příponami
 RewriteRule !\.(css|js|txt|ico|svg|gif|png|jpg|jpeg|gz)$ index.php [L]
 
