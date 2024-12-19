@@ -5,8 +5,8 @@ namespace Wikibots\Models;
 class UserManager
 {
     private bool $userKnown;
-    private string $userName;
-    private array $userGroups;
+    private ?string $userName;
+    private ?array $userGroups;
 
     public function __construct(bool $tryAutoLogin = true)
     {
@@ -19,8 +19,8 @@ class UserManager
             if ($this->isUserLoggedInOnWikiSkripta()) {
                 $this->loginUserLocally();
             } else {
-                $this->userName = 'Nepřihlášen';
-                $this->userGroups = ['Žádné'];
+                $this->userName = null;
+                $this->userGroups = null;
             }
         }
     }
@@ -35,7 +35,7 @@ class UserManager
         );
     }
 
-    private function loginUserLocally()
+    private function loginUserLocally() : bool
     {
         $params = [
             'action' => 'query',
@@ -67,7 +67,9 @@ class UserManager
             $_SESSION['user']['userName'] = $this->userName;
             $_SESSION['user']['userGroups'] = $this->userGroups;
             $this->userKnown = true;
+            return true;
         }
+        return false;
     }
 
     private function loadUserInfoFromSession() : void
@@ -81,12 +83,12 @@ class UserManager
         return $this->userKnown;
     }
 
-    public function getUserName(): string
+    public function getUserName(): ?string
     {
         return $this->userName;
     }
 
-    public function getUserGroups(): array
+    public function getUserGroups(): ?array
     {
         return $this->userGroups;
     }
