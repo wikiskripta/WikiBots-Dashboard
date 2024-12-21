@@ -1,5 +1,5 @@
 <p>Pro přístup na tuto se musíte přihlásit.</p>
-<p>Následně bude ověřeno, zda jste členem následující skupiny nutné pro přístup: <strong><?= $loginrequired_requiredgroup ?></strong></p>
+<p>Následně bude ověřeno, zda jste členem alespoň jedné z následujících skupin nutných pro přístup: <strong><?= implode(', ', $loginrequired_allowedgroups) ?></strong></p>
 <a href="https://www.wikiskripta.eu/index.php?title=Speci%C3%A1ln%C3%AD:P%C5%99ihl%C3%A1sit&returnto=WikiSkripta:WikiBots_Redirect"><button style="font-size: 100px;">Přihlásit se přes WikiSkripta</button></a>
 
 <ul>

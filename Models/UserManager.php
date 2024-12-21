@@ -93,7 +93,17 @@ class UserManager
         return $this->userGroups;
     }
 
-    public function checkUserGroup(UserGroup $groupToCheck)
+    public function checkUserGroups(array $groupsToCheck) : bool
+    {
+        foreach ($groupsToCheck as $group) {
+            if ($this->checkUserGroup($group)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function checkUserGroup(UserGroup $groupToCheck) : bool
     {
         return $this->userKnown && in_array($groupToCheck->value, $this->userGroups);
     }
