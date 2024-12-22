@@ -33,7 +33,7 @@ class PermissionManager
         }
     }
 
-    public function getAllowedGroups(IniType $type, string $object)
+    public function getAllowedGroups(IniType $type, string $object) : array
     {
         switch ($type) {
             case IniType::ROOT_FILE:

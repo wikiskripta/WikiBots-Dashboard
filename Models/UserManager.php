@@ -49,7 +49,7 @@ class UserManager
             'wsdb_session='.$_COOKIE['wsdb_session']
         ];
 
-        $url = Settings::WS_API . '?' . http_build_query($params);
+        $url = Settings::WS_LOGIN_API . '?' . http_build_query($params);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_COOKIE, implode(';', $cookies));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

@@ -1,0 +1,20 @@
+<p>Zde je seznam všech aktuálně dostupných úkonů.</p>
+<p>Po kliknutí na některý z nich můžete upravit jejich konfiguraci.</p>
+<table class="wide-table striped-table">
+    <tr>
+        <th>Název úkonu</th>
+        <th>Skupiny oprávněné měnit konfiguraci</th>
+        <th>Akce</th>
+    </tr>
+    <?php foreach ($tasks_tasks as $task) : ?>
+        <tr>
+            <td><?= $task->getName() ?></td>
+            <td><?= $task->getAllowedGroupsAsString() ?></td>
+            <td>
+                <a href="/controls/tasks/<?= $task->getUrl() ?>/config">Konfigurovat</a>
+                <a href="/controls/tasks/<?= $task->getUrl() ?>/log">Prohlížet log</a>
+            </td>
+        </tr>
+    <?php endforeach ?>
+</table>
+<p class="txt-c"><a href="/controls/tasks/new">Zaregistrovat nový úkon</a></p>
