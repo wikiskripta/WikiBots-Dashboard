@@ -16,4 +16,11 @@ class TaskManager
         }
         return $result;
     }
+
+    public function getTaskObject(string $taskId)
+    {
+        $pm = new PermissionManager();
+        $tasksDict = IniProcessor::readConfig('Tasks.ini');
+        return new Task($tasksDict[$taskId], $taskId, $pm->getAllowedGroups(IniType::TASK_CONFIG, $taskId));
+    }
 }

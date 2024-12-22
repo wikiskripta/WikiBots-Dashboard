@@ -33,7 +33,7 @@ class MasterConfig extends Controller
             return 403;
         } else {
             self::$data['layout']['title'] = 'Hlavní nastavení';
-            self::$views[] = 'masterconfig';
+            self::$views[] = 'iniconfig';
 
             if (!empty($_POST))
             {
@@ -41,7 +41,8 @@ class MasterConfig extends Controller
             }
 
             $fc = new FormCreator();
-            self::$data['masterconfig']['formcontrols'] = $fc->generateControlsFromIni(IniProcessor::readConfig('MasterConfig.ini'));
+            self::$data['iniconfig']['documentation'] = 'Uživatel:Sunny/Dokumentace/MasterConfig';
+            self::$data['iniconfig']['formcontrols'] = $fc->generateControlsFromIni(IniProcessor::readConfig('MasterConfig.ini'));
             return 200;
         }
     }

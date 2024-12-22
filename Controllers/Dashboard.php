@@ -13,16 +13,18 @@ class Dashboard extends Controller
      */
     public function process(array $args = []): int
     {
+        $allowedGroups = [UserGroup::MECHANIC, UserGroup::ADMINISTRATOR, UserGroup::MODERATOR, UserGroup::EDITOR];
+
         $um = new UserManager();
         if (!$um->isUserLoggedIn()){
             self::$views[] = 'loginrequired';
             self::$data['layout']['title'] = 'Je vyžadováno přihlášení';
-            self::$data['loginrequired']['allowedgroups'] = [UserGroup::EDITOR->value];
+            self::$data['loginrequired']['allowedgroups'] = array_map(function (UserGroup $g) { return $g->value; }, $allowedGroups);
             return 401;
         } else if (!$um->checkUserGroup(UserGroup::EDITOR)) {
             self::$views[] = 'insufficientpermissions';
             self::$data['layout']['title'] = 'Nedostatečná oprávnění';
-            self::$data['insufficientpermissions']['allowedgroups'] = [UserGroup::EDITOR->value];
+            self::$data['insufficientpermissions']['allowedgroups'] = array_map(function (UserGroup $g) { return $g->value; }, $allowedGroups);
             return 403;
         } else {
             self::$data['layout']['title'] = 'Ovládací panely';

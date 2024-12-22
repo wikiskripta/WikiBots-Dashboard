@@ -2,6 +2,13 @@
 session_start();
 $_SESSION['user']['userName'] = 'Tester';
 $groups = [$_GET['group']];
+if ($_GET['group'] === 'mechanic')
+{
+    $groups[] = 'bureaucrat';
+    $groups[] = 'sysop';
+    $groups[] = 'editor';
+    $groups[] = 'autopatrol';
+}
 if ($_GET['group'] === 'bureaucrat')
 {
     $groups[] = 'sysop';
