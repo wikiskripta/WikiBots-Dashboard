@@ -48,10 +48,11 @@ nav {
 }
 
 #user-info-bar {
-    text-align: right;
     border-bottom: 2px dashed black;
-    line-height: 1.5em;
     padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 @media (min-width: 401px) {
@@ -141,5 +142,15 @@ footer {
 
 .striped-table tr:nth-child(even) {
     background-color: #eee;
+}
+
+.striped-table td {
+    padding: 0 8px;
+}
+
+.usergroup-icon {
+    height: 50px;
+    width: 50px;
+    display: inline-block;
 }
 

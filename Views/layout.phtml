@@ -33,7 +33,15 @@ $layout_page_id
 </nav>
 <?php if (!is_null($layout_username)) : ?>
 <div id="user-info-bar">
-    <span>Aktuálně přihlášen: <b><?= $layout_username ?></b>, skupiny: <?= implode(', ', $layout_usergroups) ?></span>
+    <span>
+        Aktuálně přihlášen: <b><?= $layout_username ?></b>
+    </span>
+    <span style="align-items: center; display: flex;">
+        Skupiny:
+        <?php foreach ($layout_usergroups as $usergroup) : ?>
+            <?= \Wikibots\Models\UserGroupHelper::getGroupIcon($usergroup); ?>
+        <?php endforeach ?>
+    </span>
 </div>
 <?php endif ?>
 <main>

@@ -4,7 +4,6 @@ namespace Wikibots\Models;
 
 enum UserGroup: string
 {
-    case ROBOT = 'bot';
     case MECHANIC = 'mechanic';
     case ADMINISTRATOR = 'bureaucrat';
     case MODERATOR = 'sysop';
@@ -12,6 +11,7 @@ enum UserGroup: string
     case PATROL = 'patrol';
     case AUTOPATROL = 'autopatrol';
     case TEACHER = 'pedagogue';
+    case ROBOT = 'bot';
     case INTERFACE_EDITOR = 'interface-admin';
     case INSPECTOR = 'checkuser';
     case CENSOR = 'suppress';

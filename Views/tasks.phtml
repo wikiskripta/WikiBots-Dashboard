@@ -3,13 +3,17 @@
 <table class="wide-table striped-table">
     <tr>
         <th>Název úkonu</th>
-        <th>Skupiny oprávněné měnit konfiguraci</th>
+        <th>Skupiny oprávněné<br>měnit konfiguraci</th>
         <th>Akce</th>
     </tr>
     <?php foreach ($tasks_tasks as $task) : ?>
         <tr>
             <td><?= $task->getName() ?></td>
-            <td><?= $task->getAllowedGroupsAsString() ?></td>
+            <td>
+                <?php foreach ($task->getAllowedGroups() as $usergroup) : ?>
+                    <?= \Wikibots\Models\UserGroupHelper::getGroupIcon($usergroup); ?>
+                <?php endforeach ?>
+            </td>
             <td>
                 <a href="/controls/tasks/<?= $task->getUrl() ?>/config">Konfigurovat</a>
                 <a href="/controls/tasks/<?= $task->getUrl() ?>/log">Prohlížet log</a>

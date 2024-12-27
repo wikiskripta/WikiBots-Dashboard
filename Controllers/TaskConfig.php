@@ -23,7 +23,7 @@ class TaskConfig extends Controller
         $task = $tm->getTaskObject(array_shift($args));
 
         $pm = new PermissionManager();
-        $allowedGroups = $pm->getAllowedGroups(IniType::TASK_CONFIG, $task->getUrl());
+        $allowedGroups = $pm->getAllowedConfigGroups(IniType::TASK_CONFIG, $task->getUrl());
 
         $um = new UserManager();
         if (!$um->isUserLoggedIn()){

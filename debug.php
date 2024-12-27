@@ -8,6 +8,15 @@ if ($_GET['group'] === 'mechanic')
     $groups[] = 'sysop';
     $groups[] = 'editor';
     $groups[] = 'autopatrol';
+
+    $groups[] = 'patrol';
+    $groups[] = 'bot';
+    $groups[] = 'interface-admin';
+    $groups[] = 'checkuser';
+    $groups[] = 'suppress';
+    $groups[] = 'replacetext';
+    $groups[] = 'widgeteditor';
+    $groups[] = 'push-subscription-manager';
 }
 if ($_GET['group'] === 'bureaucrat')
 {

@@ -18,9 +18,9 @@ class IniProcessor
         {
             if(is_array($val))
             {
-                $res[] = "[$key]";
-                foreach($val as $sectionKey => $sectionVal) {
-                    $res[] = $sectionKey.' = '.self::getIniValue($sectionVal);
+                $key = $key.'[]';
+                foreach($val as $arrayValue) {
+                    $res[] = $key.' = '.self::getIniValue($arrayValue);
                 }
             }
             else {

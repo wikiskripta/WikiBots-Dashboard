@@ -1,9 +1,16 @@
 <p>Pro přístup na tuto se musíte přihlásit.</p>
-<p>Následně bude ověřeno, zda jste členem alespoň jedné z následujících skupin nutných pro přístup: <strong><?= implode(', ', $loginrequired_allowedgroups) ?></strong></p>
+<p>
+    Následně bude ověřeno, zda jste členem alespoň jedné z následujících skupin nutných pro přístup:<br>
+    <span style="text-align: right">
+        <?php foreach ($loginrequired_allowedgroups as $usergroup) : ?>
+            <?= \Wikibots\Models\UserGroupHelper::getGroupIcon($usergroup); ?>
+        <?php endforeach ?>
+    </span>
+</p>
 <a href="https://www.wikiskripta.eu/index.php?title=Speci%C3%A1ln%C3%AD:P%C5%99ihl%C3%A1sit&returnto=WikiSkripta:WikiBots_Redirect"><button style="font-size: 100px;">Přihlásit se přes WikiSkripta</button></a>
 
 <ul>
-    <li><a href="/debug.php?group=mechanic">DEBUG – přihlásit jako mechanik</a></li>
+    <li><a href="/debug.php?group=mechanic">DEBUG – přihlásit jako mechanik a vše ostatní</a></li>
     <li><a href="/debug.php?group=bureaucrat">DEBUG – přihlásit jako administrátor</a></li>
     <li><a href="/debug.php?group=sysop">DEBUG – přihlásit jako správce</a></li>
     <li><a href="/debug.php?group=editor">DEBUG – přihlásit jako redaktor</a></li>

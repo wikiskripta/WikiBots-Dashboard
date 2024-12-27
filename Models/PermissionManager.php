@@ -33,7 +33,7 @@ class PermissionManager
         }
     }
 
-    public function getAllowedGroups(IniType $type, string $object) : array
+    public function getAllowedConfigGroups(IniType $type, string $object) : array
     {
         switch ($type) {
             case IniType::ROOT_FILE:
@@ -43,5 +43,6 @@ class PermissionManager
             case IniType::PROCEDURE_CONFIG:
                 return $this->proceduresConfigsEdits[$object];
         }
+        throw new \InvalidArgumentException('Invalid INI file type provided for Permissionmanager::getAllowedGroups().');
     }
 }

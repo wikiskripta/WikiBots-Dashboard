@@ -5,6 +5,7 @@ use Wikibots\Controllers\Controller;
 use Wikibots\Controllers\Router;
 use Wikibots\Models\ErrorProcessor;
 use \Throwable;
+use Wikibots\Models\UserGroupIcons;
 
 //Renew session and set encoding
 session_start();

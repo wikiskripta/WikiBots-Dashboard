@@ -4,7 +4,7 @@ namespace Wikibots\Models;
 
 class FormControl
 {
-    public function __construct(private string $tagName, private bool $isTagPaired, private array $attributes, private ?string $iniKey, private ?string $value) {}
+    public function __construct(protected string $tagName, protected bool $isTagPaired, protected array $attributes, protected ?string $iniKey, protected string|array|null $value) {}
 
     public function render() : string
     {
@@ -22,9 +22,9 @@ class FormControl
         }
 
         if ($this->isTagPaired) {
-            $result .= '>'.($this->value ?? '').'</'.$this->tagName.'>';
+            $result .= ' required>'.($this->value ?? '').'</'.$this->tagName.'>';
         } else {
-            $result .= (is_null($this->value) ? '' : 'value="'.$this->value.'"').' />';
+            $result .= (is_null($this->value) ? '' : 'value="'.$this->value.'"').' required />';
         }
         return $result;
     }

@@ -12,7 +12,7 @@ class TaskManager
         $tasksDict = IniProcessor::readConfig('Tasks.ini');
         foreach ($tasksDict as $taskUrl => $taskName)
         {
-            $result[] = new Task($taskName, $taskUrl, $pm->getAllowedGroups(IniType::TASK_CONFIG, $taskUrl));
+            $result[] = new Task($taskName, $taskUrl, $pm->getAllowedConfigGroups(IniType::TASK_CONFIG, $taskUrl));
         }
         return $result;
     }
@@ -21,6 +21,6 @@ class TaskManager
     {
         $pm = new PermissionManager();
         $tasksDict = IniProcessor::readConfig('Tasks.ini');
-        return new Task($tasksDict[$taskId], $taskId, $pm->getAllowedGroups(IniType::TASK_CONFIG, $taskId));
+        return new Task($tasksDict[$taskId], $taskId, $pm->getAllowedConfigGroups(IniType::TASK_CONFIG, $taskId));
     }
 }

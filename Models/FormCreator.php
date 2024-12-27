@@ -30,6 +30,10 @@ class FormCreator
                 case 'double':
                     $result[] = new FormControl('input', false, ['type' => 'number'], $iniRecordKey, $iniRecordValue);
                     break;
+                case 'array':
+                    //In case INI arrays are used for more than user group selection, add some branching here
+                    $result[] = new UserGroupSelectFormControl($iniRecordKey, $iniRecordValue);
+                    break;
                 default:
                     $result[] = new FormControl('input', false, ['type' => 'text'], $iniRecordKey, $iniRecordValue);
             }
