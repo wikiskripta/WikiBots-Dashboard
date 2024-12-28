@@ -4,7 +4,7 @@ namespace Wikibots\Models;
 
 class Task
 {
-    public function __construct(private string $name, private string $url, private array $allowedGroups) {}
+    public function __construct(private string $name, private string $url, private array $allowedConfigGroups, private array $allowedLogGroups) {}
 
     public function getName()
     {
@@ -15,15 +15,29 @@ class Task
         return $this->url;
     }
 
-    public function getAllowedGroups()
+    public function getAllowedConfigGroups()
     {
-        return $this->allowedGroups;
+        return $this->allowedConfigGroups;
     }
 
-    public function getAllowedGroupsAsString()
+    public function getAllowedConfigGroupsAsString()
     {
         $result = [];
-        foreach ($this->allowedGroups as $allowedGroup) {
+        foreach ($this->allowedConfigGroups as $allowedGroup) {
+            $result[] = $allowedGroup->value;
+        }
+        return implode(', ', $result);
+    }
+
+    public function getAllowedLogGroups()
+    {
+        return $this->allowedLogGroups;
+    }
+
+    public function getAllowedLogGroupsAsString()
+    {
+        $result = [];
+        foreach ($this->allowedLogGroups as $allowedGroup) {
             $result[] = $allowedGroup->value;
         }
         return implode(', ', $result);

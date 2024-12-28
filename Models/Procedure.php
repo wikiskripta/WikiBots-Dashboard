@@ -5,7 +5,7 @@ namespace Wikibots\Models;
 class Procedure
 {
 
-    public function __construct(private string $name, private string $url, private array $allowedConfigGroups) {}
+    public function __construct(private string $name, private string $url, private array $allowedConfigGroups, private array $allowedLogGroups) {}
 
     public function getName()
     {
@@ -38,5 +38,19 @@ class Procedure
     public function getAllowedRunGroupsAsString()
     {
         return implode(', ', IniProcessor::readConfig('Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'ProcedureConfig.ini')['AllowedGroups']);
+    }
+
+    public function getAllowedLogGroups()
+    {
+        return $this->allowedLogGroups;
+    }
+
+    public function getAllowedLogGroupsAsString()
+    {
+        $result = [];
+        foreach ($this->allowedLogGroups as $allowedGroup) {
+            $result[] = $allowedGroup->value;
+        }
+        return implode(', ', $result);
     }
 }

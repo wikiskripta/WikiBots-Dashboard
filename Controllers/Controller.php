@@ -69,7 +69,7 @@ abstract class Controller
 
     /**
      * Method setting the currently processed request as API request with JSON response.
-     * This means that no views are used (only a basic "empty" one (json.phtml)), Content-type header is set
+     * This means that no views are used (only a basic "empty" one (blank.phtml)), Content-type header is set
      * and response is prepared to be outputted.
      * @param string $jsonString JSON response for the current request
      * @return void

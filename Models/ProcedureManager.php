@@ -12,7 +12,7 @@ class ProcedureManager
         $proceduresDict = IniProcessor::readConfig('Procedures.ini');
         foreach ($proceduresDict as $procedureUrl => $procedureName)
         {
-            $result[] = new Procedure($procedureName, $procedureUrl, $pm->getAllowedConfigGroups(IniType::PROCEDURE_CONFIG, $procedureUrl));
+            $result[] = new Procedure($procedureName, $procedureUrl, $pm->getAllowedConfigGroups(IniType::PROCEDURE_CONFIG, $procedureUrl), $pm->getAllowedLogGroups(IniType::PROCEDURE_LOG, $procedureUrl));
         }
         return $result;
     }
@@ -20,7 +20,7 @@ class ProcedureManager
     public function getProcedureObject(string $procedureId)
     {
         $pm = new PermissionManager();
-        $procedureUrl = IniProcessor::readConfig('Procedures.ini');
-        return new Task($procedureUrl[$procedureId], $procedureId, $pm->getAllowedConfigGroups(IniType::PROCEDURE_CONFIG, $procedureId));
+        $procedures = IniProcessor::readConfig('Procedures.ini');
+        return new Procedure($procedures[$procedureId], $procedureId, $pm->getAllowedConfigGroups(IniType::PROCEDURE_CONFIG, $procedureId), $pm->getAllowedLogGroups(IniType::PROCEDURE_LOG, $procedureId));
     }
 }

@@ -5,6 +5,7 @@
         <th>Název procedury</th>
         <th>Skupiny oprávněné<br>měnit konfiguraci</th>
         <th>Skupiny oprávněné<br>spouštět proceduru</th>
+        <th>Skupiny oprávněné<br>prohlížet logy</th>
         <th>Akce</th>
     </tr>
     <?php foreach ($procedures_procedures as $procedure) : ?>
@@ -17,6 +18,11 @@
             </td>
             <td>
                 <?php foreach ($procedure->getAllowedRunGroups() as $usergroup) : ?>
+                    <?= \Wikibots\Models\UserGroupHelper::getGroupIcon($usergroup); ?>
+                <?php endforeach ?>
+            </td>
+            <td>
+                <?php foreach ($procedure->getAllowedLogGroups() as $usergroup) : ?>
                     <?= \Wikibots\Models\UserGroupHelper::getGroupIcon($usergroup); ?>
                 <?php endforeach ?>
             </td>

@@ -1,0 +1,37 @@
+<p>Níže jsou zobrazeny všechny dostupné logy pro proces <?= $logs_processname ?>.</p>
+<p>
+    Starší logy mohou být dostupné jako archivy nezobrazitelné ve webovém rozhraní.
+    V případě potřeby přístupu k nim kontaktujte prosím webmastera.
+</p>
+<table>
+    <?php foreach ($logs_filelist['error'] as $logfile) : ?>
+        <tr style="background-color: #ff9999">
+            <td><?= basename($logfile) ?></td>
+            <td>
+                <a href="log/view/<?= basename($logfile) ?>" target="_blank">
+                    Zobrazit
+                </a>
+            </td>
+            <td>
+                <a href="log/get/<?= basename($logfile) ?>" download>
+                    Stáhnout
+                </a>
+            </td>
+        </tr>
+    <?php endforeach ?>
+    <?php foreach ($logs_filelist['normal'] as $logfile) : ?>
+    <tr>
+        <td><?= basename($logfile) ?></td>
+        <td>
+            <a href="log/view/<?= basename($logfile) ?>" target="_blank">
+                Zobrazit
+            </a>
+        </td>
+        <td>
+            <a href="log/get/<?= basename($logfile) ?>" download="">
+                Stáhnout
+            </a>
+        </td>
+    </tr>
+    <?php endforeach ?>
+</table>

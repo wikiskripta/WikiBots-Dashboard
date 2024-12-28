@@ -4,13 +4,19 @@
     <tr>
         <th>Název úkonu</th>
         <th>Skupiny oprávněné<br>měnit konfiguraci</th>
+        <th>Skupiny oprávněné<br>prohlížet logy</th>
         <th>Akce</th>
     </tr>
     <?php foreach ($tasks_tasks as $task) : ?>
         <tr>
             <td><?= $task->getName() ?></td>
             <td>
-                <?php foreach ($task->getAllowedGroups() as $usergroup) : ?>
+                <?php foreach ($task->getAllowedConfigGroups() as $usergroup) : ?>
+                    <?= \Wikibots\Models\UserGroupHelper::getGroupIcon($usergroup); ?>
+                <?php endforeach ?>
+            </td>
+            <td>
+                <?php foreach ($task->getAllowedLogGroups() as $usergroup) : ?>
                     <?= \Wikibots\Models\UserGroupHelper::getGroupIcon($usergroup); ?>
                 <?php endforeach ?>
             </td>
