@@ -7,6 +7,7 @@
     <?php foreach ($logs_filelist['error'] as $logfile) : ?>
         <tr style="background-color: #ff9999">
             <td><?= basename($logfile) ?></td>
+            <td class="txt-r"><?= number_format(filesize($logfile), 0, ",", " ") ?> B</td>
             <td>
                 <a href="log/view/<?= basename($logfile) ?>" target="_blank">
                     Zobrazit
@@ -22,6 +23,7 @@
     <?php foreach ($logs_filelist['normal'] as $logfile) : ?>
     <tr>
         <td><?= basename($logfile) ?></td>
+        <td class="txt-r"><?= number_format(filesize($logfile), 0, ",", " ") ?> B</td>
         <td>
             <a href="log/view/<?= basename($logfile) ?>" target="_blank">
                 Zobrazit

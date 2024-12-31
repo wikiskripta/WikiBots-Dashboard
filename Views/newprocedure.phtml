@@ -1,19 +1,19 @@
-<p>Pomocí tohoto formuláře je možné zaregistrovat v ovládacím panelu nový úkon.</p>
+<p>Pomocí tohoto formuláře je možné zaregistrovat v ovládacím panelu novou proceduru.</p>
 <p>Po odeslání se automaticky vytvoří adresářová struktura pro logy, konfiguraci a konfigurační soubor s výchozím obsahem.</p>
 <p>Následně budete přesměrováni na formulář umožňující úpravu konfigurace.</p>
 <p>
-    <strong>Před odesláním tohoto formuláře je nutné nahrát na server skript provádějící příslušný úkon.</strong>
+    <strong>Před odesláním tohoto formuláře je nutné nahrát na server skript provádějící příslušnou proceduru.</strong>
     Tento skript musí být umístněn ve složce
-    <code><?= $newtask_botscriptspath.DIRECTORY_SEPARATOR ?>[hodnota vyplněná do prvního pole níže]<?= DIRECTORY_SEPARATOR ?></code>.
+    <code><?= $newprocedure_botscriptspath.DIRECTORY_SEPARATOR ?>[hodnota vyplněná do prvního pole níže]<?= DIRECTORY_SEPARATOR ?></code>.
 </p>
 <form method="post">
     <p>
-        <label for="task-id">ID úkonu (velká a malá písmena anglické abecedy, bez mezer):</label><br>
-        <input name="task-id" type="text" maxlength="32" width="32" placeholder="CoolEditsMaker" required />
+        <label for="procedure-id">ID procedury (velká a malá písmena anglické abecedy, bez mezer):</label><br>
+        <input name="procedure-id" type="text" maxlength="32" width="32" placeholder="RandomFactGenerator" required />
     </p>
     <p>
-        <label for="task-name">Název úkonu</label><br>
-        <input name="task-name" type="text" maxlength="128" style="width: 100%" placeholder="Provádění krutopřísných editací podle aktuálního počasí." required />
+        <label for="procedure-name">Název procedury</label><br>
+        <input name="procedure-name" type="text" maxlength="128" style="width: 100%" placeholder="Generování náhodných faktů o WikiSkriptech." required />
     </p>
     <p>
         <label for="allow-config-groups">Skupiny oprávněné měnit konfiguraci:</label><br>
@@ -51,9 +51,9 @@
         <option value="widgeteditor">widgeteditor</option>
         <option value="push-subscription-manager">push-subscription-manager</option>
     </select>
-    <p><strong>Pozor! Jednou zaregistrovaný úkon není možné odebrat jinak, než přímo ze serveru přes SSH.</strong></p>
+    <p><strong>Pozor! Jednou zaregistrovanou proceduru není možné odebrat jinak, než přímo ze serveru přes SSH.</strong></p>
     <ul class="error">
-        <?php foreach ($newtask_errors as $error) : ?>
+        <?php foreach ($newprocedure_errors as $error) : ?>
             <li><?= $error ?></li>
         <?php endforeach ?>
     </ul>

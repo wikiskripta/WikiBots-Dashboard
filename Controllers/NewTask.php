@@ -56,10 +56,10 @@ class NewTask extends Controller
                 }
 
                 if (!is_dir(Settings::BOT_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId)) {
-                    self::$data['newtask']['errors'][] .= 'Adresář <code>'.Settings::BOT_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId.'</code> nebyl nalezen. Nejprve jí vytvořte a nahrajte do ní skripty robota pro daný úkon.';
+                    self::$data['newtask']['errors'][] .= 'Adresář <code>'.Settings::BOT_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro daný úkon.';
                 }
 
-                if (!empty(self::$data['newtask']['error'])) {
+                if (!empty(self::$data['newtask']['errors'])) {
                     self::$data['layout']['title'] = 'Registrace nového úkonu';
                     self::$data['newtask']['botscriptspath'] = Settings::BOT_SCRIPTS_DIR;
                     self::$data['newtask']['taskid'] = $taskId;

@@ -8,8 +8,8 @@ class LogManager
     {
         $logDir = Settings::LOG_DIR.DIRECTORY_SEPARATOR.$logDir;
 
-        $normalLogs = glob($logDir.'*.log');
-        $errorLogs = glob($logDir.'*.tsv');
+        $normalLogs = array_merge(glob($logDir.'*.log'), glob($logDir.'TriggerHistory.tsv'));
+        $errorLogs = glob($logDir.'Errors.tsv');
 
         sort($normalLogs);
         sort($errorLogs);

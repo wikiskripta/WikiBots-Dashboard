@@ -27,7 +27,7 @@ class PermissionManager
             }
         }
 
-        foreach ($data['ProceduresConfigsEdits'] as $file => $groups)
+        foreach ($data['ProcedureConfigsEdits'] as $file => $groups)
         {
             foreach ($groups as $group) {
                 $this->proceduresConfigsEdits[$file][] = UserGroup::getCaseFromValue($group);
