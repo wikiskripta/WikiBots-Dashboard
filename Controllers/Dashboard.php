@@ -21,7 +21,7 @@ class Dashboard extends Controller
             self::$data['layout']['title'] = 'Je vyžadováno přihlášení';
             self::$data['loginrequired']['allowedgroups'] = array_map(function (UserGroup $g) { return $g->value; }, $allowedGroups);
             return 401;
-        } else if (!$um->checkUserGroup(UserGroup::EDITOR)) {
+        } else if (!$um->checkUserGroups($allowedGroups)) {
             self::$views[] = 'insufficientpermissions';
             self::$data['layout']['title'] = 'Nedostatečná oprávnění';
             self::$data['insufficientpermissions']['allowedgroups'] = array_map(function (UserGroup $g) { return $g->value; }, $allowedGroups);

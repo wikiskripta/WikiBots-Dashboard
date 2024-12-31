@@ -1,0 +1,62 @@
+<p>Pomocí tohoto formuláře je možné zaregistrovat v ovládacím panelu nový úkon.</p>
+<p>Po odeslání se automaticky vytvoří adresářová struktura pro logy, konfiguraci a konfigurační soubor s výchozím obsahem.</p>
+<p>Následně budete přesměrováni na formulář umožňující úpravu konfigurace.</p>
+<p>
+    <strong>Před odesláním tohoto formuláře je nutné nahrát na server skript provádějící příslušný úkon.</strong>
+    Tento skript musí být umístněn ve složce
+    <code><?= $newtask_botscriptspath.DIRECTORY_SEPARATOR ?>[hodnota vyplněná do prvního pole níže]<?= DIRECTORY_SEPARATOR ?></code>.
+</p>
+<form method="post">
+    <p>
+        <label for="task-id">ID úkonu (velká a malá písmena anglické abecedy, bez mezer):</label><br>
+        <input name="task-id" type="text" maxlength="32" width="32" placeholder="CoolEditsMaker" required />
+    </p>
+    <p>
+        <label for="task-name">Název úkolu</label><br>
+        <input name="task-name" type="text" maxlength="128" style="width: 100%" placeholder="Provádění krutopřísných editací podle aktuálního počasí." required />
+    </p>
+    <p>
+        <label for="allow-config-groups">Skupiny oprávněné měnit konfiguraci:</label><br>
+        <select size="4" multiple id="allow-config-groups" name="allow-config-groups[]" required>
+            <option value="mechanic">mechanic</option>
+            <option value="bureaucrat">bureaucrat</option>
+            <option value="sysop">sysop</option>
+            <option value="editor">editor</option>
+            <option value="patrol">patrol</option>
+            <option value="autopatrol">autopatrol</option>
+            <option value="pedagogue">pedagogue</option>
+            <option value="bot">bot</option>
+            <option value="interface-admin">interface-admin</option>
+            <option value="checkuser">checkuser</option>
+            <option value="suppress">suppress</option>
+            <option value="replacetext">replacetext</option>
+            <option value="widgeteditor">widgeteditor</option>
+            <option value="push-subscription-manager">push-subscription-manager</option>
+        </select>
+    </p>
+    <label for="allow-log-groups">Skupiny oprávněné prohlížet logy:</label><br>
+    <select size="4" multiple id="allow-log-groups" name="allow-log-groups[]" required>
+        <option value="mechanic">mechanic</option>
+        <option value="bureaucrat">bureaucrat</option>
+        <option value="sysop">sysop</option>
+        <option value="editor">editor</option>
+        <option value="patrol">patrol</option>
+        <option value="autopatrol">autopatrol</option>
+        <option value="pedagogue">pedagogue</option>
+        <option value="bot">bot</option>
+        <option value="interface-admin">interface-admin</option>
+        <option value="checkuser">checkuser</option>
+        <option value="suppress">suppress</option>
+        <option value="replacetext">replacetext</option>
+        <option value="widgeteditor">widgeteditor</option>
+        <option value="push-subscription-manager">push-subscription-manager</option>
+    </select>
+    <p><strong>Pozor! Jednou zaregistrovaný úkon není možné odebrat jinak, než přímo ze serveru přes SSH.</strong></p>
+    <ul class="error">
+        <?php foreach ($newtask_errors as $error) : ?>
+            <li><?= $error ?></li>
+        <?php endforeach ?>
+    </ul>
+    <p><input type="submit" value="Zaregistrovat"/></p>
+</form>
+

@@ -8,6 +8,10 @@ class FormControl
 
     public function render() : string
     {
+        if ($this->tagName === 'br') {
+            return '<br>';
+        }
+
         $result = '<'.$this->tagName.' ';
         if (!is_null($this->iniKey)) {
             $result .= 'name="'.$this->iniKey.'" ';

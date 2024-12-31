@@ -126,6 +126,10 @@ footer {
     display: none;
 }
 
+.error {
+    color: red;
+}
+
 .wide-table {
     display: block;
     width: max-content;
