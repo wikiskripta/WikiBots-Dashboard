@@ -4,6 +4,7 @@ namespace Wikibots\Models;
 
 class Procedure
 {
+    private array $allowedRunGroups;
 
     public function __construct(private string $name, private string $url, private array $allowedConfigGroups, private array $allowedLogGroups) {}
 
@@ -32,7 +33,13 @@ class Procedure
 
     public function getAllowedRunGroups()
     {
-        return IniProcessor::readConfig('Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'ProcedureConfig.ini')['AllowedGroups'];
+        if (!isset($this->allowedRunGroups)) {
+            $this->allowedRunGroups = [];
+            foreach (IniProcessor::readConfig('Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'ProcedureConfig.ini')['AllowedGroups'] as $group) {
+                $this->allowedRunGroups[] = UserGroup::getCaseFromValue($group);
+            }
+        }
+        return $this->allowedRunGroups;
     }
 
     public function getAllowedRunGroupsAsString()
@@ -52,5 +59,15 @@ class Procedure
             $result[] = $allowedGroup->value;
         }
         return implode(', ', $result);
+    }
+
+    public function run($POSTdata)
+    {
+        $supportedParameters = array_keys(IniProcessor::readConfig('Procedures'.DIRECTORY_SEPARATOR.$this->url().DIRECTORY_SEPARATOR.'Parameters.ini'));
+        foreach (array_intersect_key($POSTdata, array_flip($supportedParameters)) as $parameterName => $parameterValue) {
+            //TODO
+        }
+        //TODO
+        return $outputFilePath;
     }
 }

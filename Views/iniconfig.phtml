@@ -3,9 +3,11 @@
     <a href="<?= \Wikibots\Models\Settings::WS_DOCUMENTATION_BASE_URL.$iniconfig_documentation ?>" target="_blank">zde</a>.
 </p>
 <form method="post">
-<?php foreach ($iniconfig_formcontrols as $formControl) : ?>
-    <?= $formControl->render(); ?>
-<?php endforeach ?>
+    <table>
+        <?php foreach ($iniconfig_formcontrols as $formControl) : ?>
+            <?= $formControl->render(); ?>
+        <?php endforeach ?>
+    </table>
     <input type="reset" value="Resetovat"/>
     <input type="submit" value="Uložit"/>
 </form>

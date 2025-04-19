@@ -48,7 +48,7 @@ class ProcedureConfig extends Controller
 
             $fc = new FormCreator();
             self::$data['iniconfig']['documentation'] = IniProcessor::readConfig($configFilePath)['Documentation'];
-            self::$data['iniconfig']['formcontrols'] = $fc->generateControlsFromIni(IniProcessor::readConfig($configFilePath));
+            self::$data['iniconfig']['formcontrols'] = $fc->generateControlsFromConfigIni(IniProcessor::readConfig($configFilePath));
             return 200;
         }
     }

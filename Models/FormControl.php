@@ -8,11 +8,13 @@ class FormControl
 
     public function render() : string
     {
-        if ($this->tagName === 'br') {
-            return '<br>';
+        $result = '';
+        if ($this->tagName === 'label') {
+            $result .= '<tr>';
         }
+        $result .= '<td'.(($this->tagName === 'label' && in_array($this->value, ['TRUE', 'FALSE'])) ? ' style="text-align: right"' : '').'>';
 
-        $result = '<'.$this->tagName.' ';
+        $result .= '<'.$this->tagName.' ';
         if (!is_null($this->iniKey)) {
             $result .= 'name="'.$this->iniKey.'" ';
         }
@@ -29,6 +31,11 @@ class FormControl
             $result .= ' required>'.($this->value ?? '').'</'.$this->tagName.'>';
         } else {
             $result .= (is_null($this->value) ? '' : 'value="'.$this->value.'"').' required />';
+        }
+
+        $result .= '</td>';
+        if ($this->tagName !== 'label') {
+            $result .= '</tr>';
         }
         return $result;
     }
