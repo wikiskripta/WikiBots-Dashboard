@@ -52,14 +52,14 @@ class FormCreator
                     $result[] = new FormControl('label', true, ['for' => $parameter.'1'], null, 'TRUE');
 
                     $attributes = ['type' => 'radio'];
-                    if ($paramData['default'] === 'true') {
+                    if ($paramData['default'] === true) {
                         $attributes['checked'] = '';
                     }
                     $result[] = new FormControl('input', false, $attributes, $parameter, 'true');
                     unset($attributes['checked']);
 
                     $result[] = new FormControl('label', true, ['for' => $parameter.'0'], null, 'FALSE');
-                    if ($paramData['default'] === 'false') {
+                    if ($paramData['default'] === false) {
                         $attributes['checked'] = '';
                     }
                     $result[] = new FormControl('input', false, $attributes, $parameter, 'false');

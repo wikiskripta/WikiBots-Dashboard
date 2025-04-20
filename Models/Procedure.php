@@ -118,6 +118,7 @@ class Procedure
 
         setlocale(LC_CTYPE, "en_US.UTF-8");
         set_time_limit(0);
+        ignore_user_abort(true);
 
         $supportedParameters = array_keys(IniProcessor::readConfig('Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Parameters.ini'));
         $parameterString = ' -dir /var/www/html/WikiBots/Bot';

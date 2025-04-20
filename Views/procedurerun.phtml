@@ -7,13 +7,13 @@
     Naposledy byla spuštěna před <strong><?= $procedurerun_sincelastrun ?> minutami</strong>.
 </p>
 <form method="post" style="border: 1px solid black;">
-    <table>
+    <table style="border-bottom: 1px dashed black;">
         <?php foreach ($procedurerun_formcontrols as $formControl) : ?>
             <?= $formControl->render(); ?>
         <?php endforeach ?>
         <tr>
-            <td><label for="comment">Důvod/komentář ke spuštění procedury</label></td>
-            <td><input id="comment" name="comment" type="text" required></td>
+            <td style="border-top: 1px dashed black;"><label for="comment">Důvod/komentář ke spuštění procedury (loguje se)</label></td>
+            <td style="border-top: 1px dashed black;"><input id="comment" name="comment" type="text" required></td>
         </tr>
     </table>
     <input type="reset" value="Resetovat"/>
