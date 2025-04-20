@@ -42,7 +42,7 @@ class MasterConfig extends Controller
 
             $fc = new FormCreator();
             self::$data['iniconfig']['documentation'] = 'Uživatel:Sunny/Dokumentace/MasterConfig';
-            self::$data['iniconfig']['formcontrols'] = $fc->generateControlsFromIni(IniProcessor::readConfig('MasterConfig.ini'));
+            self::$data['iniconfig']['formcontrols'] = $fc->generateControlsFromConfigIni(IniProcessor::readConfig('MasterConfig.ini'));
             return 200;
         }
     }

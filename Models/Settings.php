@@ -8,6 +8,8 @@ class Settings
     public const WS_DOCUMENTATION_BASE_URL = 'https://www.wikiskripta.eu/w/';
     public const CONFIG_DIR = 'BotConfig';
     public const LOG_DIR = 'BotLog';
-    public const BOT_SCRIPTS_DIR = 'Bot/scripts/sunny';
+    public const BOT_TASKS_SCRIPTS_DIR = 'Bot/tasks';
+    public const BOT_PROCEDURES_SCRIPTS_DIR = 'Bot/procedures';
+    public const PROCEDURE_INTERPRETER_CMD = 'python3';
 }
 

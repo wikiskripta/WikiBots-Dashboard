@@ -55,13 +55,13 @@ class NewTask extends Controller
                     }
                 }
 
-                if (!is_dir(Settings::BOT_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId)) {
-                    self::$data['newtask']['errors'][] .= 'Adresář <code>'.Settings::BOT_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro daný úkon.';
+                if (!is_dir(Settings::BOT_TASKS_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId)) {
+                    self::$data['newtask']['errors'][] .= 'Adresář <code>'.Settings::BOT_TASKS_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro daný úkon.';
                 }
 
                 if (!empty(self::$data['newtask']['errors'])) {
                     self::$data['layout']['title'] = 'Registrace nového úkonu';
-                    self::$data['newtask']['botscriptspath'] = Settings::BOT_SCRIPTS_DIR;
+                    self::$data['newtask']['botscriptspath'] = Settings::BOT_TASKS_SCRIPTS_DIR;
                     self::$data['newtask']['taskid'] = $taskId;
                     self::$data['newtask']['taskname'] = $taskName;
                     self::$data['newtask']['configgroups'] = $configGroups;
@@ -87,7 +87,7 @@ Interval = 86400"
                 chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId, 0755);
                 file_put_contents(
                     Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'Errors.tsv',
-"ERROR NUMBER	DATE, TIME	CONTENT
+"RUN NUMBER	DATETIME	CONTENT
 "
                 );
                 chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'Errors.tsv', 0644);
@@ -104,7 +104,7 @@ Interval = 86400"
             } else {
                 //Form not submitted yet
                 self::$data['layout']['title'] = 'Registrace nového úkonu';
-                self::$data['newtask']['botscriptspath'] = Settings::BOT_SCRIPTS_DIR;
+                self::$data['newtask']['botscriptspath'] = Settings::BOT_TASKS_SCRIPTS_DIR;
                 self::$data['newtask']['taskid'] = '';
                 self::$data['newtask']['taskname'] = '';
                 self::$data['newtask']['configgroups'] = '';

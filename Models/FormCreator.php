@@ -21,6 +21,7 @@ class FormCreator
                     unset($attributes['checked']);
 
                     $result[] = new FormControl('label', true, ['for' => $iniRecordKey.'0'], null, 'FALSE');
+
                     if (!$iniRecordValue) {
                         $attributes['checked'] = '';
                     }

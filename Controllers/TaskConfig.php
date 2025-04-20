@@ -43,11 +43,12 @@ class TaskConfig extends Controller
             $configFilePath = 'Tasks'.DIRECTORY_SEPARATOR.$task->getUrl().DIRECTORY_SEPARATOR.'TaskConfig.ini';
 
             if (!empty($_POST)) {
-                IniProcessor::writeConfig($configFilePath, $_POST);
+                $POSTdata = array_intersect_key($_POST, array_flip(array_keys(IniProcessor::readConfig($configFilePath))));
+                IniProcessor::writeConfig($configFilePath, $POSTdata);
             }
 
             $fc = new FormCreator();
-            self::$data['iniconfig']['documentation'] = IniProcessor::readConfig($configFilePath)['Documentation'];
+            self::$data['iniconfig']['documentation'] = $task->getDocumentation();
             self::$data['iniconfig']['formcontrols'] = $fc->generateControlsFromConfigIni(IniProcessor::readConfig($configFilePath));
             return 200;
         }

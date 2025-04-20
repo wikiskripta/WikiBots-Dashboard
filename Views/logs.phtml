@@ -20,6 +20,22 @@
             </td>
         </tr>
     <?php endforeach ?>
+    <?php foreach ($logs_filelist['usage'] as $logfile) : ?>
+        <tr style="background-color: #99afff">
+            <td><?= basename($logfile) ?></td>
+            <td class="txt-r"><?= number_format(filesize($logfile), 0, ",", " ") ?> B</td>
+            <td>
+                <a href="log/view/<?= basename($logfile) ?>" target="_blank">
+                    Zobrazit
+                </a>
+            </td>
+            <td>
+                <a href="log/get/<?= basename($logfile) ?>" download>
+                    Stáhnout
+                </a>
+            </td>
+        </tr>
+    <?php endforeach ?>
     <?php foreach ($logs_filelist['normal'] as $logfile) : ?>
     <tr>
         <td><?= basename($logfile) ?></td>

@@ -21,6 +21,8 @@ class FormControl
 
         if (@$this->attributes['type'] === 'radio') {
             $result .=' id="'.$this->iniKey.($this->value === 'true' ? '1' : '0').'" ';
+        } else if ($this->tagName !== 'label') {
+            $result .= ' id="'.$this->iniKey.'" ';
         }
 
         foreach ($this->attributes as $key => $value) {

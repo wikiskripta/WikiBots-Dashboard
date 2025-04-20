@@ -2,13 +2,23 @@
     Dokumentace k této proceduře je dostupná na WikiSkriptech:
     <a href="<?= \Wikibots\Models\Settings::WS_DOCUMENTATION_BASE_URL.$procedurerun_documentation ?>" target="_blank">zde</a>.
 </p>
-<form method="post">
+<p <?= ($procedurerun_interval > $procedurerun_sincelastrun) ? 'class="error"' : '' ?>>
+    Tato procedura může být spuštěna každých <strong><?= $procedurerun_interval ?> minut</strong>.<br>
+    Naposledy byla spuštěna před <strong><?= $procedurerun_sincelastrun ?> minutami</strong>.
+</p>
+<form method="post" style="border: 1px solid black;">
     <table>
         <?php foreach ($procedurerun_formcontrols as $formControl) : ?>
             <?= $formControl->render(); ?>
         <?php endforeach ?>
+        <tr>
+            <td><label for="comment">Důvod/komentář ke spuštění procedury</label></td>
+            <td><input id="comment" name="comment" type="text" required></td>
+        </tr>
     </table>
     <input type="reset" value="Resetovat"/>
     <input type="submit" value="Spustit"/>
-    <p>Procedura může běžet i několik minut (nebo i déle). Pokud chcete výstup obdržet přímo, zůstaňte po kliknutí na "Spustit" na této stránce. V opačném případě naleznete výstup po ukončení běhu v logu procedury.</p>
 </form>
+<p>Procedura může běžet i několik minut (nebo i déle). Pokud chcete výstup obdržet přímo, zůstaňte po kliknutí na "Spustit" na této stránce. V opačném případě naleznete výstup po ukončení běhu v logu procedury.</p>
+<pre class="procedure-output"><?= $procedurerun_output ?? '<i>Zde se zobrazí výstup.</i>' ?></pre>
+

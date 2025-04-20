@@ -55,13 +55,13 @@ class Newprocedure extends Controller
                     }
                 }
 
-                if (!is_dir(Settings::BOT_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$procedureId)) {
-                    self::$data['newprocedure']['errors'][] .= 'Adresář <code>'.Settings::BOT_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$procedureId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro danou proceduru.';
+                if (!is_dir(Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$procedureId)) {
+                    self::$data['newprocedure']['errors'][] .= 'Adresář <code>'.Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$procedureId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro danou proceduru.';
                 }
 
                 if (!empty(self::$data['newprocedure']['errors'])) {
                     self::$data['layout']['title'] = 'Registrace nové procedury';
-                    self::$data['newprocedure']['botscriptspath'] = Settings::BOT_SCRIPTS_DIR;
+                    self::$data['newprocedure']['botscriptspath'] = Settings::BOT_PROCEDURES_SCRIPTS_DIR;
                     self::$data['newprocedure']['taskid'] = $procedureId;
                     self::$data['newprocedure']['taskname'] = $procedureName;
                     self::$data['newprocedure']['configgroups'] = $configGroups;
@@ -86,16 +86,16 @@ AllowedGroups[] = mechanic"
                 chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId, 0755);
                 file_put_contents(
                     Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Errors.tsv',
-"ERROR NUMBER	DATE, TIME	CONTENT
+"RUN NUMBER	DATETIME	CONTENT
 "
                 );
                 chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Errors.tsv', 0644);
                 file_put_contents(
-                    Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'TriggerHistory.tsv',
-                    "RUN NUMBER	DATE, TIME	USER	COMMENT
+                    Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Usage.tsv',
+                    "RUN NUMBER	DATETIME	USER	COMMENT	ARGUMENTS
 "
                 );
-                chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'TriggerHistory.tsv', 0644);
+                chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Usage.tsv', 0644);
 
                 $currentProcedureList = IniProcessor::readConfig('Procedures.ini');
                 $currentProcedureList[$procedureId] = $procedureName;
@@ -109,7 +109,7 @@ AllowedGroups[] = mechanic"
             } else {
                 //Form not submitted yet
                 self::$data['layout']['title'] = 'Registrace nové procedury';
-                self::$data['newprocedure']['botscriptspath'] = Settings::BOT_SCRIPTS_DIR;
+                self::$data['newprocedure']['botscriptspath'] = Settings::BOT_PROCEDURES_SCRIPTS_DIR;
                 self::$data['newprocedure']['procedureid'] = '';
                 self::$data['newprocedure']['proceduraname'] = '';
                 self::$data['newprocedure']['configgroups'] = '';

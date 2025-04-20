@@ -39,16 +39,21 @@ class Procedure extends Controller
             self::$data['layout']['title'] = 'Spušení procedury '.$procedure->getUrl();
             self::$views[] = 'procedurerun';
 
-            $configFilePath = 'Procedures'.DIRECTORY_SEPARATOR.$procedure->getUrl().DIRECTORY_SEPARATOR.'ProcedureConfig.ini';
             $parametersFilePath = 'Procedures'.DIRECTORY_SEPARATOR.$procedure->getUrl().DIRECTORY_SEPARATOR.'Parameters.ini';
 
             if (!empty($_POST)) {
-                $outputFilePath = $procedure->run($_POST);
-                self::$data['procedurerun']['output'] = file_get_contents($outputFilePath);
+                $outputFilePath = $procedure->run($_POST, str_replace(array("\r", "\n"), ' ', trim($_POST['comment'])));
+                if ($outputFilePath === false) {
+                    self::$data['procedurerun']['output'] = '<strong class="error">Procedura byla spuštěna příliš nedávno, počkejte než vyprší cooldown. Poté odešlete formulář znovu aktualizací této stránky.</strong>';
+                } else {
+                    self::$data['procedurerun']['output'] = file_get_contents($outputFilePath);
+                }
             }
 
             $fc = new FormCreator();
-            self::$data['procedurerun']['documentation'] = IniProcessor::readConfig($configFilePath)['Documentation'];
+            self::$data['procedurerun']['documentation'] = $procedure->getDocumentation();
+            self::$data['procedurerun']['interval'] = $procedure->getCooldown();
+            self::$data['procedurerun']['sincelastrun'] = floor((time() - $procedure->getLastRunTimestamp()) / 60);
             self::$data['procedurerun']['formcontrols'] = $fc->generateControlsFromParametersIni(IniProcessor::readConfig($parametersFilePath));
             return 200;
         }

@@ -9,4 +9,5 @@ enum IniType
     case PROCEDURE_CONFIG;
     case TASK_LOG;
     case PROCEDURE_LOG;
+    case PROCEDURE_PARAMETERS;
 }
