@@ -105,7 +105,7 @@ class UserManager
 
     public function checkUserGroup(UserGroup $groupToCheck) : bool
     {
-        return $this->userKnown && in_array($groupToCheck->value, $this->userGroups);
+        return $this->userKnown && in_array($groupToCheck->value, $this->userGroups ?? []);
     }
 }
 

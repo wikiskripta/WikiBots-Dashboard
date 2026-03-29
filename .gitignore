@@ -3,3 +3,6 @@
 cache/*
 uploads/*
 Bot/*
+*.log
+*.tsv
+

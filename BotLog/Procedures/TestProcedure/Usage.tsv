@@ -1,1 +1,17 @@
 RUN NUMBER	DATETIME	USER	COMMENT	ARGUMENTS
+15	2025-05-09 15:42:32	Tester	Test editace WS	-dir /var/www/html/WikiBots/Bot --phrase 'Test editace WikiSkript' --repetition '3'
+15	2025-05-09 15:42:33	CONSOLE	Task finished, time: 1 seconds	N/A
+16	2025-05-09 15:44:08	Tester	Test editace WS	-dir /var/www/html/WikiBots/Bot --phrase 'Test editace WikiSkript' --repetition '5'
+16	2025-05-09 15:44:08	CONSOLE	Task finished, time: 0 seconds	N/A
+17	2025-05-09 15:49:09	Tester	Test editace WS	-dir /var/www/html/WikiBots/Bot --phrase 'Test editace WikiSkript' --repetition '10'
+17	2025-05-09 15:49:10	CONSOLE	Task finished, time: 1 seconds	N/A
+18	2025-05-09 15:51:15	Tester	Test editace WS	-dir /var/www/html/WikiBots/Bot --phrase 'Test editace WikiSkript' --repetition '10'
+18	2025-05-09 15:51:18	CONSOLE	Task finished, time: 3 seconds	N/A
+19	2025-05-09 15:53:05	Tester	Test editace WS	-dir /var/www/html/WikiBots/Bot --phrase 'Test editace WikiSkript' --repetition '10'
+19	2025-05-09 15:53:06	CONSOLE	Task finished, time: 1 seconds	N/A
+20	2025-05-09 15:54:24	Tester	Test editace WS	-dir /var/www/html/WikiBots/Bot --phrase 'Test editace WikiSkript' --repetition '10'
+20	2025-05-09 15:54:25	CONSOLE	Task finished, time: 1 seconds	N/A
+21	2025-10-18 11:30:56	Tester	Testování	-dir /var/www/html/WikiBots/Bot --phrase 'Test' --repetition '3'
+21	2025-10-18 11:30:57	CONSOLE	Task finished, time: 1 seconds	N/A
+22	2025-10-18 11:39:43	Tester	Testování	-dir /var/www/html/WikiBots/Bot --phrase 'Test' --repetition '3'
+22	2025-10-18 11:39:44	CONSOLE	Task finished, time: 1 seconds	N/A

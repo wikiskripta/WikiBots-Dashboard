@@ -126,7 +126,6 @@ class Procedure
         foreach (array_intersect_key($POSTdata, array_flip($supportedParameters)) as $parameterName => $parameterValue) {
             $parameterString .= ' --'.$parameterName.' '.escapeshellarg($parameterValue);
         }
-
         $command = escapeshellcmd(Settings::PROCEDURE_INTERPRETER_CMD.' '.Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'procedure.py'.$parameterString);
 
         $this->incrementLastRunNumber();

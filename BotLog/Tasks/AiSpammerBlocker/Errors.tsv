@@ -1,1 +1,49 @@
 DATETIME	CONTENT
+Skipped '/var/www/html/WikiBots/Bot/user-config.py': owned by someone else.
+family and mylang are not set.
+Defaulting to family='wikipedia' and mylang='test'.
+Traceback (most recent call last):
+  File "/var/www/html/WikiBots/Bot/tasks/AiSpammerBlocker/fill_queue.py", line 13, in <module>
+    site = pywikibot.Site()
+  File "/var/www/html/WikiBots/Bot/pywikibot/__init__.py", line 216, in Site
+    fam = Family.load(fam)
+  File "/var/www/html/WikiBots/Bot/pywikibot/family.py", line 350, in load
+    raise UnknownFamilyError(f'Family {fam} does not exist')
+pywikibot.exceptions.UnknownFamilyError: Family wikipedia does not exist
+CRITICAL: Exiting due to uncaught exception UnknownFamilyError: Family wikipedia does not exist
+Skipped '/var/www/html/WikiBots/Bot/user-config.py': owned by someone else.
+family and mylang are not set.
+Defaulting to family='wikipedia' and mylang='test'.
+Skipped '/var/www/html/WikiBots/Bot/user-config.py': owned by someone else.
+family and mylang are not set.
+Defaulting to family='wikipedia' and mylang='test'.
+Traceback (most recent call last):
+  File "/var/www/html/WikiBots/Bot/tasks/AiSpammerBlocker/fill_queue.py", line 13, in <module>
+    site = pywikibot.Site()
+  File "/var/www/html/WikiBots/Bot/pywikibot/__init__.py", line 216, in Site
+    fam = Family.load(fam)
+  File "/var/www/html/WikiBots/Bot/pywikibot/family.py", line 350, in load
+    raise UnknownFamilyError(f'Family {fam} does not exist')
+pywikibot.exceptions.UnknownFamilyError: Family wikipedia does not exist
+CRITICAL: Exiting due to uncaught exception UnknownFamilyError: Family wikipedia does not exist
+Skipped '/var/www/html/WikiBots/Bot/user-config.py': owned by someone else.
+family and mylang are not set.
+Defaulting to family='wikipedia' and mylang='test'.
+Traceback (most recent call last):
+  File "/var/www/html/WikiBots/Bot/tasks/AiSpammerBlocker/fill_queue.py", line 13, in <module>
+    site = pywikibot.Site()
+  File "/var/www/html/WikiBots/Bot/pywikibot/__init__.py", line 246, in Site
+    _sites[key] = interface(code=code, fam=fam, user=user)
+  File "/var/www/html/WikiBots/Bot/pywikibot/site/_apisite.py", line 138, in __init__
+    self.login(cookie_only=True)
+  File "/var/www/html/WikiBots/Bot/pywikibot/site/_apisite.py", line 388, in login
+    http.cookie_jar.load(self.username(), ignore_discard=True)
+  File "/var/www/html/WikiBots/Bot/pywikibot/comms/http.py", line 84, in load
+    super().load(*args, **kwargs)
+  File "/usr/lib/python3.10/http/cookiejar.py", line 1806, in load
+    with open(filename) as f:
+PermissionError: [Errno 13] Permission denied: '/var/www/html/WikiBots/Bot/pywikibot-Sunny.lwp'
+CRITICAL: Exiting due to uncaught exception PermissionError: [Errno 13] Permission denied: '/var/www/html/WikiBots/Bot/pywikibot-Sunny.lwp'
+WARNING: API error permissiondenied: You need the "patrol" or "patrolmarks" right to request the patrolled flag.
+2025-10-17 19:58:12.255927	Error while processing page Uživatel:MagdaB75264 permissiondenied: You need the "patrol" or "patrolmarks" right to request the patrolled flag.
+[help: See https://www.wikiskripta.eu/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes.]
