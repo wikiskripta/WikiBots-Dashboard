@@ -1,17 +1,20 @@
 <?php
 namespace Wikibots;
 
+use Dotenv\Dotenv;
 use Wikibots\Controllers\Controller;
 use Wikibots\Controllers\Router;
 use Wikibots\Models\ErrorProcessor;
 use \Throwable;
-use Wikibots\Models\UserGroupIcons;
 
 //Renew session and set encoding
 session_start();
 mb_internal_encoding('UTF-8');
 
-//Define and set the autoloader
+//Load external libraries included by Composer
+require 'vendor/autoload.php';
+
+//Define and set the autoloader for our own files
 function autoloader(string $name): void
 {
     //Replace backslashes (used in namespace path) with forward slashes (used in directory path)
@@ -53,6 +56,10 @@ function fatalExceptionHandler(Throwable $e) : void
     require Controller::VIEWS_DIRECTORY.'/'.$errorView.'.phtml';
 }
 set_exception_handler('Wikibots\\fatalExceptionHandler');
+
+//Load enviromental variables
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 //Load the URL and process the request (get data for the views)
 $rooter = new Router();

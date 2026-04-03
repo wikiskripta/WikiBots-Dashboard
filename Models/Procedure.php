@@ -121,11 +121,12 @@ class Procedure
         ignore_user_abort(true);
 
         $supportedParameters = array_keys(IniProcessor::readConfig('Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Parameters.ini'));
-        $parameterString = ' -dir /var/www/html/WikiBots/Bot';
+        $parameterString = ' -dir '.$_ENV['PYWIKIBOT_ROOT'];
 
         foreach (array_intersect_key($POSTdata, array_flip($supportedParameters)) as $parameterName => $parameterValue) {
             $parameterString .= ' --'.$parameterName.' '.escapeshellarg($parameterValue);
         }
+
         $command = escapeshellcmd(Settings::PROCEDURE_INTERPRETER_CMD.' '.Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'procedure.py'.$parameterString);
 
         $this->incrementLastRunNumber();
