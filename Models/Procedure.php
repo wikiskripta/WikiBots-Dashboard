@@ -91,22 +91,22 @@ class Procedure
 
     public function getLastRunTimestamp() : int
     {
-        return trim(file_get_contents(Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'lastrun'));
+        return trim(file_get_contents($_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'lastrun'));
     }
 
     private function updateLastRunTimestamp() : void
     {
-        file_put_contents(Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'lastrun', time());
+        file_put_contents($_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'lastrun', time());
     }
 
     public function getLastRunNumber() : int
     {
-        return trim(file_get_contents(Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'runcount'));
+        return trim(file_get_contents($_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'runcount'));
     }
 
     public function incrementLastRunNumber() : void
     {
-        file_put_contents(Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'runcount', $this->getLastRunNumber() + 1);
+        file_put_contents($_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'runcount', $this->getLastRunNumber() + 1);
     }
 
     public function run($POSTdata, $comment) : string|false
@@ -121,26 +121,26 @@ class Procedure
         ignore_user_abort(true);
 
         $supportedParameters = array_keys(IniProcessor::readConfig('Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Parameters.ini'));
-        $parameterString = ' -dir '.$_ENV['PYWIKIBOT_ROOT'];
+        $parameterString = ' -dir '.$_ENV['APP_ROOT'].DIRECTORY_SEPARATOR.$_ENV['PYWIKIBOT_DIR'];
 
         foreach (array_intersect_key($POSTdata, array_flip($supportedParameters)) as $parameterName => $parameterValue) {
             $parameterString .= ' --'.$parameterName.' '.escapeshellarg($parameterValue);
         }
 
-        $command = escapeshellcmd(Settings::PROCEDURE_INTERPRETER_CMD.' '.Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'procedure.py'.$parameterString);
+        $command = escapeshellcmd($_ENV['procedure_interpreter_cmd'].' '.$_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'procedure.py'.$parameterString);
 
         $this->incrementLastRunNumber();
         $startTime = time();
         $runId = $this->getLastRunNumber();
 
-        $outputFilePath = Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.date('Y-m-d_H-i-s').'_run-'.$runId.'_output.log';
+        $outputFilePath = $_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.date('Y-m-d_H-i-s').'_run-'.$runId.'_output.log';
 
-        file_put_contents(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Usage.tsv',
+        file_put_contents($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Usage.tsv',
             $runId."\t".date('Y-m-d H:i:s')."\t".(new UserManager)->getUserName()."\t".$comment."\t".trim($parameterString).PHP_EOL,
             FILE_APPEND
         );
 
-        $process = proc_open($command, [["pipe", "r"],["pipe", "w"],["pipe", "w"]], $pipes);
+        $process = \proc_open($command, [["pipe", "r"],["pipe", "w"],["pipe", "w"]], $pipes);
         if (is_resource($process)) {
             $output = stream_get_contents($pipes[1]);
             $error = stream_get_contents($pipes[2]);
@@ -152,10 +152,10 @@ class Procedure
             $error = 'Failed to open process: '.$command;
         }
         foreach (explode("\n", $error) as $errLine) {
-            file_put_contents(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Errors.tsv', $runId."\t".date('Y-m-d_H-i-s')."\t".trim($errLine).PHP_EOL, FILE_APPEND);
+            file_put_contents($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Errors.tsv', $runId."\t".date('Y-m-d_H-i-s')."\t".trim($errLine).PHP_EOL, FILE_APPEND);
         }
 
-        file_put_contents(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Usage.tsv',
+        file_put_contents($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$this->url.DIRECTORY_SEPARATOR.'Usage.tsv',
             $runId."\t".date('Y-m-d H:i:s')."\tCONSOLE\tTask finished, time: ".time() - $startTime." seconds\tN/A".PHP_EOL,
             FILE_APPEND
         );

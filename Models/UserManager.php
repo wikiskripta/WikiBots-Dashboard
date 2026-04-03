@@ -16,7 +16,7 @@ class UserManager
         }
 
         if (!$this->userKnown && $tryAutoLogin) {
-            if ($this->isUserLoggedInOnWikiSkripta()) {
+            if ($this->isUserLoggedInOnWiki()) {
                 $this->loginUserLocally();
             } else {
                 $this->userName = null;
@@ -25,7 +25,7 @@ class UserManager
         }
     }
 
-    private function isUserLoggedInOnWikiSkripta() : bool
+    private function isUserLoggedInOnWiki() : bool
     {
         return (
             isset($_COOKIE['wsdb_session']) ||
@@ -49,7 +49,7 @@ class UserManager
             'wsdb_session='.$_COOKIE['wsdb_session']
         ];
 
-        $url = Settings::WS_LOGIN_API . '?' . http_build_query($params);
+        $url = $_ENV['WIKI_LOGIN_API'] . '?' . http_build_query($params);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_COOKIE, implode(';', $cookies));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

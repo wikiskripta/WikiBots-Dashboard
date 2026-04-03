@@ -41,8 +41,8 @@ class NewTask extends Controller
                     self::$data['newtask']['errors'][] = 'ID úkonu nesmí obsahovat jiné znaky než velká a malá písmena anglické abecedy.';
                 }
                 if (
-                    is_dir(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId) ||
-                    is_dir(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId) ||
+                    is_dir($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId) ||
+                    is_dir($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId) ||
                     isset(IniProcessor::readConfig('Tasks.ini')[$taskId])
                 ) {
                     self::$data['newtask']['errors'][] = 'Úkon s tímto ID již existuje (nebo nebyl v minulosti úplně odstraněn).';
@@ -55,13 +55,13 @@ class NewTask extends Controller
                     }
                 }
 
-                if (!is_dir(Settings::BOT_TASKS_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId)) {
-                    self::$data['newtask']['errors'][] .= 'Adresář <code>'.Settings::BOT_TASKS_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$taskId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro daný úkon.';
+                if (!is_dir($_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId)) {
+                    self::$data['newtask']['errors'][] .= 'Adresář <code>'.$_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro daný úkon.';
                 }
 
                 if (!empty(self::$data['newtask']['errors'])) {
                     self::$data['layout']['title'] = 'Registrace nového úkonu';
-                    self::$data['newtask']['botscriptspath'] = Settings::BOT_TASKS_SCRIPTS_DIR;
+                    self::$data['newtask']['botscriptspath'] = $_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'];
                     self::$data['newtask']['taskid'] = $taskId;
                     self::$data['newtask']['taskname'] = $taskName;
                     self::$data['newtask']['configgroups'] = $configGroups;
@@ -71,26 +71,26 @@ class NewTask extends Controller
                 }
 
                 //Data validation OK
-                mkdir(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId, 0755);
-                chmod(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId, 0755);
+                mkdir($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId, 0755);
+                chmod($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId, 0755);
                 file_put_contents(
-                    Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'TaskConfig.ini',
+                    $_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'TaskConfig.ini',
 "Description = 
-Documentation = WikiSkripta:Sunny/Dokumentace/Úkony/$taskId
+Documentation = ".$_ENV['TASKS_DOCUMENTATION_PAGE_PREFIX']."$taskId
 QueueFillingEnabled = false
 QueueProcessingEnabled = false
 Interval = 86400"
                 );
-                chmod(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'TaskConfig.ini', 0644);
+                chmod($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'TaskConfig.ini', 0644);
 
-                mkdir(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId, 0755);
-                chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId, 0755);
+                mkdir($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId, 0755);
+                chmod($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId, 0755);
                 file_put_contents(
-                    Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'Errors.tsv',
+                    $_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'Errors.tsv',
 "RUN NUMBER	DATETIME	CONTENT
 "
                 );
-                chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Tasks'.DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'Errors.tsv', 0644);
+                chmod($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$taskId.DIRECTORY_SEPARATOR.'Errors.tsv', 0644);
 
                 $currentTaskList = IniProcessor::readConfig('Tasks.ini');
                 $currentTaskList[$taskId] = $taskName;
@@ -104,7 +104,7 @@ Interval = 86400"
             } else {
                 //Form not submitted yet
                 self::$data['layout']['title'] = 'Registrace nového úkonu';
-                self::$data['newtask']['botscriptspath'] = Settings::BOT_TASKS_SCRIPTS_DIR;
+                self::$data['newtask']['botscriptspath'] = $_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['TASKS_SUBDIR_NAME'];
                 self::$data['newtask']['taskid'] = '';
                 self::$data['newtask']['taskname'] = '';
                 self::$data['newtask']['configgroups'] = '';

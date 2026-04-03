@@ -22,8 +22,8 @@
         <a href="/dashboard" class="nav-item"  style="background-color: #7cff40">Ovládací panely</a>
     </span>
     <span class="nav-row">
-        <a href="https://www.wikiskripta.eu" class="nav-item" style="background-color: #FFBE00">WikiSkripta</a>
-        <a href="<?= is_null($layout_username) ? 'https://www.wikiskripta.eu/index.php?title=Speci%C3%A1ln%C3%AD:P%C5%99ihl%C3%A1sit&returnto=WikiSkripta:WikiBots_Redirect' : '/logout' ?>" class="nav-item" style="background-color: #ff4040">
+        <a href="https://www.wikiskripta.eu" class="nav-item" style="background-color: #FFBE00">WikiSkripta</a><!-- NOTE: not wiki-universal -->
+        <a href="<?= is_null($layout_username) ? 'https://www.wikiskripta.eu/index.php?title=Speci%C3%A1ln%C3%AD:P%C5%99ihl%C3%A1sit&returnto=WikiSkripta:WikiBots_Redirect' : '/logout' ?>" class="nav-item" style="background-color: #ff4040"><!-- NOTE: not wiki-universal -->
             <?= is_null($layout_username) ? 'Přihlásit se' : 'Odhlásit se' ?>
         </a>
     </span>

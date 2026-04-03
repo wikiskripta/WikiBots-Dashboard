@@ -1,6 +1,6 @@
 <p>
     Dokumentace k této proceduře je dostupná na WikiSkriptech:
-    <a href="<?= \Wikibots\Models\Settings::WS_DOCUMENTATION_BASE_URL.$procedurerun_documentation ?>" target="_blank">zde</a>.
+    <a href="<?= $_ENV['WIKI_PAGE_BASE_URL'].$procedurerun_documentation ?>" target="_blank">zde</a>.
 </p>
 <p <?= ($procedurerun_interval > $procedurerun_sincelastrun) ? 'class="error"' : '' ?>>
     Tato procedura může být spuštěna každých <strong><?= $procedurerun_interval ?> minut</strong>.<br>

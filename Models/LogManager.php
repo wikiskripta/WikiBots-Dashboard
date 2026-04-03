@@ -6,7 +6,7 @@ class LogManager
 {
     public function getLogList(string $logDir) : array
     {
-        $logDir = Settings::LOG_DIR.DIRECTORY_SEPARATOR.$logDir;
+        $logDir = $_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$logDir;
 
         $normalLogs = glob($logDir.'*.log');
         $usageLogs = glob($logDir.'Usage.tsv');
@@ -25,6 +25,6 @@ class LogManager
 
     public function getLogContent(string $logPath) : string
     {
-        return file_get_contents(Settings::LOG_DIR.DIRECTORY_SEPARATOR.$logPath);
+        return file_get_contents($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$logPath);
     }
 }

@@ -41,8 +41,8 @@ class Newprocedure extends Controller
                     self::$data['newprocedure']['errors'][] = 'ID procedury nesmí obsahovat jiné znaky než velká a malá písmena anglické abecedy.';
                 }
                 if (
-                    is_dir(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId) ||
-                    is_dir(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId) ||
+                    is_dir($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId) ||
+                    is_dir($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId) ||
                     isset(IniProcessor::readConfig('Procedures.ini')[$procedureId])
                 ) {
                     self::$data['newprocedure']['errors'][] = 'Procedura s tímto ID již existuje (nebo nebyla v minulosti úplně odstraněna).';
@@ -55,13 +55,13 @@ class Newprocedure extends Controller
                     }
                 }
 
-                if (!is_dir(Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$procedureId)) {
-                    self::$data['newprocedure']['errors'][] .= 'Adresář <code>'.Settings::BOT_PROCEDURES_SCRIPTS_DIR.DIRECTORY_SEPARATOR.$procedureId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro danou proceduru.';
+                if (!is_dir($_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId)) {
+                    self::$data['newprocedure']['errors'][] .= 'Adresář <code>'.$_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId.'</code> nebyl nalezen. Nejprve jej vytvořte a nahrajte do něj skripty robota pro danou proceduru.';
                 }
 
                 if (!empty(self::$data['newprocedure']['errors'])) {
                     self::$data['layout']['title'] = 'Registrace nové procedury';
-                    self::$data['newprocedure']['botscriptspath'] = Settings::BOT_PROCEDURES_SCRIPTS_DIR;
+                    self::$data['newprocedure']['botscriptspath'] = $_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'];
                     self::$data['newprocedure']['taskid'] = $procedureId;
                     self::$data['newprocedure']['taskname'] = $procedureName;
                     self::$data['newprocedure']['configgroups'] = $configGroups;
@@ -71,31 +71,31 @@ class Newprocedure extends Controller
                 }
 
                 //Data validation OK
-                mkdir(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId, 0755);
-                chmod(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId, 0755);
+                mkdir($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId, 0755);
+                chmod($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId, 0755);
                 file_put_contents(
-                    Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'ProcedureConfig.ini',
+                    $_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'ProcedureConfig.ini',
 "Description = 
-Documentation = WikiSkripta:Sunny/Dokumentace/Procedury/$procedureId
+Documentation = ".$_ENV['PROCEDURE_DOCUMENTATION_PAGE_PREFIX']."$procedureId
 Cooldown = 0
 AllowedGroups[] = mechanic"
                 );
-                chmod(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'ProcedureConfig.ini', 0644);
+                chmod($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'ProcedureConfig.ini', 0644);
 
-                mkdir(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId, 0755);
-                chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId, 0755);
+                mkdir($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId, 0755);
+                chmod($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId, 0755);
                 file_put_contents(
-                    Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Errors.tsv',
+                    $_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Errors.tsv',
 "RUN NUMBER	DATETIME	CONTENT
 "
                 );
-                chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Errors.tsv', 0644);
+                chmod($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Errors.tsv', 0644);
                 file_put_contents(
-                    Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Usage.tsv',
+                    $_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Usage.tsv',
                     "RUN NUMBER	DATETIME	USER	COMMENT	ARGUMENTS
 "
                 );
-                chmod(Settings::LOG_DIR.DIRECTORY_SEPARATOR.'Procedures'.DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Usage.tsv', 0644);
+                chmod($_ENV['LOG_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'].DIRECTORY_SEPARATOR.$procedureId.DIRECTORY_SEPARATOR.'Usage.tsv', 0644);
 
                 $currentProcedureList = IniProcessor::readConfig('Procedures.ini');
                 $currentProcedureList[$procedureId] = $procedureName;
@@ -109,7 +109,7 @@ AllowedGroups[] = mechanic"
             } else {
                 //Form not submitted yet
                 self::$data['layout']['title'] = 'Registrace nové procedury';
-                self::$data['newprocedure']['botscriptspath'] = Settings::BOT_PROCEDURES_SCRIPTS_DIR;
+                self::$data['newprocedure']['botscriptspath'] = $_ENV['PYWIKIBOT_DIR'].DIRECTORY_SEPARATOR.$_ENV['PROCEDURES_SUBDIR_NAME'];
                 self::$data['newprocedure']['procedureid'] = '';
                 self::$data['newprocedure']['proceduraname'] = '';
                 self::$data['newprocedure']['configgroups'] = '';

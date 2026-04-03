@@ -8,7 +8,7 @@ class IniProcessor
 {
     public static function readConfig(string $filename)
     {
-        return parse_ini_file(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.$filename, true, INI_SCANNER_TYPED);
+        return parse_ini_file($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$filename, true, INI_SCANNER_TYPED);
     }
 
     public static function writeConfig(string $filename, array $content, bool $writeSectionsInsteadOfArrays = false)
@@ -40,7 +40,7 @@ class IniProcessor
                 $res[] = $key.' = '.$val;
             }
         }
-        file_put_contents(Settings::CONFIG_DIR.DIRECTORY_SEPARATOR.$filename, implode("\r\n", $res));
+        file_put_contents($_ENV['CONFIG_DIR'].DIRECTORY_SEPARATOR.$filename, implode("\r\n", $res));
     }
 
     private static function getIniValue($value)
