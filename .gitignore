@@ -1,8 +1,6 @@
-.idea/*
-.local/*
-cache/*
-uploads/*
-Bot/*
-*.log
-*.tsv
-
+.idea/
+.local/
+cache/
+uploads/
+Bot/**
+BotLog/**
