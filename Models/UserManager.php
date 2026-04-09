@@ -28,7 +28,7 @@ class UserManager
     private function isUserLoggedInOnWiki() : bool
     {
         return (
-            isset($_COOKIE['wsdb_session']) ||
+            isset($_COOKIE['wsdb_session']) &&
             isset($_COOKIE['wsdbUserName']) &&
             isset($_COOKIE['wsdbUserID']) &&
             isset($_COOKIE['wsdbToken'])
