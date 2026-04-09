@@ -58,11 +58,11 @@ class UserManager
         curl_close($ch);
 
         $jsonData = json_decode($result, true);
-        $userGroups = [];
         if (isset($jsonData['query']['userinfo']['groupmemberships']) && isset($jsonData['query']['userinfo']['name'])) {
             $this->userName = $jsonData['query']['userinfo']['name'];
+            $this->userGroups = [];
             foreach ($jsonData['query']['userinfo']['groupmemberships'] as $group) {
-                $this->userGroups[] = $group['group'];
+                $this->userGroups[] = UserGroup::getCaseFromValue($group['group']);
             }
             $_SESSION['user']['userName'] = $this->userName;
             $_SESSION['user']['userGroups'] = $this->userGroups;
@@ -85,16 +85,31 @@ class UserManager
 
     public function getUserName(): ?string
     {
+        if (!$this->userKnown) {
+            return null;
+        }
         return $this->userName;
     }
 
     public function getUserGroups(): ?array
     {
-        return $this->userGroups;
+        if (!$this->userKnown) {
+            return null;
+        }
+        $sort = [];
+        foreach ($this->userGroups as $userGroup)
+        {
+            $sort[UserGroup::getGroupValue($userGroup)] = $userGroup;
+        }
+        krsort($sort);
+        return $sort;
     }
 
     public function checkUserGroups(array $groupsToCheck) : bool
     {
+        if (!$this->userKnown) {
+            return false;
+        }
         foreach ($groupsToCheck as $group) {
             if ($this->checkUserGroup($group)) {
                 return true;
@@ -105,7 +120,7 @@ class UserManager
 
     public function checkUserGroup(UserGroup $groupToCheck) : bool
     {
-        return $this->userKnown && in_array($groupToCheck->value, $this->userGroups ?? []);
+        return $this->userKnown && in_array($groupToCheck, $this->userGroups ?? []);
     }
 }
 

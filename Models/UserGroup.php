@@ -28,4 +28,23 @@ enum UserGroup: string
         }
         throw new \ValueError("$groupName is not a valid group name.");
     }
+
+    public static function getGroupValue(self $group) {
+        return match($group) {
+            self::MECHANIC => 73,
+            self::ADMINISTRATOR => 70,
+            self::PUSH_NOTIFICATION_MANAGER => 60,
+            self::INTERFACE_EDITOR => 52,
+            self::WIDGET_EDITOR => 51,
+            self::REPLACE_TEXT => 50,
+            self::CENSOR => 42,
+            self::INSPECTOR => 41,
+            self::MODERATOR => 40,
+            self::PATROL => 30,
+            self::ROBOT => 22,
+            self::TEACHER => 21,
+            self::EDITOR => 20,
+            self::AUTOPATROL => 10
+        };
+    }
 }

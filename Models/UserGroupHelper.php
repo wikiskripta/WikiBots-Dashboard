@@ -17,10 +17,8 @@ class UserGroupHelper
         foreach (UserGroupIcons::cases() as $currentSearchedCace) {
             if ($currentSearchedCace->name == $case->name) {
                 $iconUrl = $currentSearchedCace->value;
-                break; //First break out of cycle I used in like 7 years. What PHP does to a mf.
+                return '<img class="usergroup-icon" src="'.$iconUrl.'" title="'.$case->value.'" />';
             }
         }
-
-        return '<img class="usergroup-icon" src="'.$iconUrl.'" title="'.$case->value.'" />';
     }
 }
